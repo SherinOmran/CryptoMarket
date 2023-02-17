@@ -9,7 +9,7 @@ namespace Algorithmic_trader
     {
         public static int popsize = 351;
 
-        double crossover_rate = 1;
+        double crossover_rate = 0.8;
         static int gene_num;
         double mut_rate = 0.5;
         int ind;

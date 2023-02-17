@@ -18,3 +18,13 @@ C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.c
 C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.CoreCompileInputs.cache
 C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.exe
 C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.pdb
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\bin\Debug\Algorithmic_trader.exe.config
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\bin\Debug\Algorithmic_trader.exe
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\bin\Debug\Algorithmic_trader.pdb
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.csprojResolveAssemblyReference.cache
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.Form1.resources
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.Properties.Resources.resources
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.GenerateResource.Cache
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.CoreCompileInputs.cache
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.exe
+C:\Users\Sherin Omran\source\repos\CryptoMarket\Algorithmic_trader\obj\Debug\Algorithmic_trader.pdb

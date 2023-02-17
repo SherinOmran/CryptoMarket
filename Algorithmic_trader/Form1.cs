@@ -47,9 +47,9 @@ namespace Algorithmic_trader
 
         private void button1_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
-            
             Trading_MO t = new Trading_MO(prices);
             Trading_MO Tst;
             int s_size =  popsize;
@@ -149,6 +149,7 @@ namespace Algorithmic_trader
 
         private void button5_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             List<double> temp = new List<double>();
@@ -245,6 +246,7 @@ namespace Algorithmic_trader
 
         private void button9_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
 
@@ -352,6 +354,7 @@ namespace Algorithmic_trader
 
         private void button2_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Trading_MO t = new Trading_MO(prices);
@@ -463,6 +466,7 @@ namespace Algorithmic_trader
 
         private void button6_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Genetic_Algorithm g = new Genetic_Algorithm(4, 1, prices);
@@ -559,6 +563,7 @@ namespace Algorithmic_trader
 
         private void button10_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Trading_MO t = new Trading_MO(prices);
@@ -671,6 +676,7 @@ namespace Algorithmic_trader
 
         private void button3_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Trading_MO t = new Trading_MO(prices);
@@ -788,6 +794,7 @@ namespace Algorithmic_trader
 
         private void button7_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             List<double> temp = new List<double>();
@@ -894,6 +901,7 @@ namespace Algorithmic_trader
 
         private void button11_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Trading_MO t = new Trading_MO(prices);
@@ -1019,6 +1027,7 @@ namespace Algorithmic_trader
 
         private void button4_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Trading_MO t = new Trading_MO(prices);
@@ -1130,6 +1139,7 @@ namespace Algorithmic_trader
 
         private void button8_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Genetic_Algorithm g = new Genetic_Algorithm(3, 3, prices);
@@ -1231,6 +1241,7 @@ namespace Algorithmic_trader
 
         private void button12_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear(); dataGridView1.Columns.Clear();
             Tst_DB_read();
             DB_read();
             Trading_MO t = new Trading_MO(prices);
