@@ -1,0 +1,20 @@
+c:\users\sherin omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csprojResolveAssemblyReference.cache
+c:\users\sherin omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.Form1.resources
+c:\users\sherin omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.Properties.Resources.resources
+c:\users\sherin omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.GenerateResource.Cache
+c:\users\sherin omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.CoreCompileInputs.cache
+C:\Users\Sherin Omran\source\repos\Algorithmic_trader\Algorithmic_trader\bin\Debug\Algorithmic_trader.exe.config
+C:\Users\Sherin Omran\source\repos\Algorithmic_trader\Algorithmic_trader\bin\Debug\Algorithmic_trader.exe
+C:\Users\Sherin Omran\source\repos\Algorithmic_trader\Algorithmic_trader\bin\Debug\Algorithmic_trader.pdb
+C:\Users\Sherin Omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.exe
+C:\Users\Sherin Omran\source\repos\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.pdb
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\bin\Debug\Algorithmic_trader.exe.config
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\bin\Debug\Algorithmic_trader.exe
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\bin\Debug\Algorithmic_trader.pdb
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csprojResolveAssemblyReference.cache
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.Form1.resources
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.Properties.Resources.resources
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.GenerateResource.Cache
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.csproj.CoreCompileInputs.cache
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.exe
+C:\SherinDB\Algorithmic_trader\Algorithmic_trader\obj\Debug\Algorithmic_trader.pdb
