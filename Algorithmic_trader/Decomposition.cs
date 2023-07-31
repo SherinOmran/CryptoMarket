@@ -20,10 +20,13 @@ namespace Algorithmic_trader
             return random.NextDouble() * (maximum - minimum) + minimum;
         }
 
+
+        ////////////////// Systematic weight generation ///////////////////////
+
         public double[,] sys_weight_gen()
         {
             double[,] w = new double[pop, 3];
-            int s = 25;  //controlling parameter    //
+            int s = 25; //controlling parameter    //
             int i = 0;
             for (int k=0;k<=s;k++)
             {
@@ -38,26 +41,33 @@ namespace Algorithmic_trader
                 }
             }
             return w;
-
-
-
         }
-        public double[,] weight_gen()
+
+        public double[,] sys_weight_gen(int s)
         {
-            double sum;
-            double[,] weight_vec = new double[pop, 3];
-            for (int i = 0; i < pop; i++)
+            double[,] w = new double[pop, 3];
+           // int s = 25;// 30;  //controlling parameter    //
+            int i = 0;
+            for (int k = 0; k <= s; k++)
             {
-                sum = 0;
-                weight_vec[i, 0] = GetRandomNumber(0, 1);
-                weight_vec[i, 1] = GetRandomNumber(0, 1 - weight_vec[i, 0]);
-                weight_vec[i, 2] = 1 - (weight_vec[i, 0] + weight_vec[i, 1]);
-                sum = sum + weight_vec[i, 0] + weight_vec[i, 1] + weight_vec[i, 2];
+                for (int H = 0; H <= s - k; H++)
+                {
+                    w[i, 0] = (double)k / (double)s;
+                    double d = (double)H / (double)s;
+                    w[i, 1] = 1 - (w[i, 0] + d);
+                    w[i, 2] = 1 - (w[i, 0] + w[i, 1]);
+                    i++;
 
+                }
             }
-            return weight_vec;
-        }
+            return w;
 
+
+
+        }
+       
+
+        //////////////////////////// Uniform random weight Generation //////////////////////////////
 
         public double[,] rand_weight_gen()
         {
@@ -84,13 +94,13 @@ namespace Algorithmic_trader
             return weight_vec;
         }
 
-        
+
        
 
 
         ///*******************************  Non normalized weighted Tchebycheff   ***************************//
-    
-          public double W_old_Tch(double[] z, double[] fitness, double[] W)           //// z is the reference point , W the weights
+
+        public double W_old_Tch(double[] z, double[] fitness, double[] W)           //// z is the reference point , W the weights
         {
             double w_Tch;
             double[] a = new double[3];
@@ -116,20 +126,20 @@ namespace Algorithmic_trader
         /// ********************************************* Normalized  WTCH  *****************************************************************************
         /// 
 
-        //public double W_Tch(double[] z, double[] fitness, double[] W)
+        //public double W_Tch(double[] z_min, double[] z_max, double[] fitness, double[] W)
         //{
         //    double w_Tch;
         //    double[] a = new double[3];
 
-        //    double[] z_min = { -1000, -4, 1 };
+        //    if (z_min[2] == 0) { z_min[2] = 1; }
 
         //    for (int j = 0; j < fitness.GetLength(0); j++)
         //    {
 
-        //        a[j] = W[j] * Math.Abs((fitness[j] - z_min[j]) / (z[j] - z_min[j]));
+        //        a[j] = W[j] * (Math.Abs(fitness[j] - z_max[j]) / (z_max[j] - z_min[j]));
         //        if (j == 2)
         //        {
-        //            a[j] = W[j] * (Math.Abs(z[j] - fitness[j]) / (z[j] - z_min[j]));
+        //            a[j] = W[j] * (Math.Abs(z_min[j] - fitness[j]) / (z_max[j] - z_min[j]));
 
 
         //        }
@@ -147,31 +157,32 @@ namespace Algorithmic_trader
         /////***************************Normalized AUG_TCH   *************************************************
 
 
-
-        public double W_Tch(double[] z, double[] fitness, double[] W)
+        public double W_Tch(double[] z_min, double[] z_max, double[] fitness, double[] W)
         {
             double w_Tch;
             double[] a = new double[3];
             double roh = 0.05; // 0.02;
             double sum = 0;
-            double[] z_min = { -1000, -4, 1 };
+           
+            if (z_min[2] == 0) { z_min[2] = 1; }
             for (int j = 0; j < fitness.GetLength(0); j++)
             {
 
-                a[j] = W[j] * (Math.Abs(fitness[j] - z_min[j]) / (z[j] - z_min[j]));
-                sum = sum + Math.Abs(z[j] - fitness[j]);
-
-                if (j == 2)
+                if (j != 2)
                 {
-                    a[j] = W[j] * (Math.Abs(z[j] - fitness[j]) / (z[j] - z_min[j]));
+                    a[j] = W[j] * (Math.Abs(fitness[j] - z_max[j]) / (z_max[j] - z_min[j]));
+                    sum = sum + (Math.Abs(fitness[j] - z_max[j]) / (z_max[j] - z_min[j]));
+                }
+                else
+                {
+                    a[j] = W[j] * (Math.Abs(z_min[j] - fitness[j]) / (z_max[j] - z_min[j]));
 
-                    sum = sum + Math.Abs(z[j] - fitness[j]) / (z[j] - z_min[j]);
+                    sum = sum + (Math.Abs(z_min[j] - fitness[j]) / (z_max[j] - z_min[j]));
                 }
 
             }
 
             w_Tch = a.Max() + roh * sum;
-
 
 
             return w_Tch;
@@ -181,13 +192,13 @@ namespace Algorithmic_trader
 
 
 
-        /// <summary>
-        /// //////
-        /// </summary>
-        /// <param name="weight"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        /// 
+       
+
+        //////////////////
+
+
+        
+////////////// Calculate Euclidean distance
 
         public int[,] E_dist(double[,] weight, int n)   //  a function too calculate the euclidean distance & the neighbors of each subproblem. Here, n is the neighborhood size
         {
@@ -240,17 +251,6 @@ namespace Algorithmic_trader
             return neighnors;
         }
 
-        //    public void cal_Euc_dist(double[,] points)
-        //    {
-        //        var distanceArray = new double[points.Length, points.Length];
-
-        //        for (int i = 0; i < points.Length; i++)
-        //            for (int j = 0; j < points.Length; j++)
-        //                distanceArray[i, j] = Distance(points[i, 0], points[i, 1], points[j, 0], points[j, 1]);
-        //    }
-
-        //    public static double Distance(double x1, double y1, double x2, double y2)
-        //    => Math.Sqrt(((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
-        //}
+      
     }
 }

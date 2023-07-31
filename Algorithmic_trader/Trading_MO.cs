@@ -114,9 +114,75 @@ namespace Algorithmic_trader
             return B_bands;
         }
 
+        //public double[] Bollinger_trading(int n_ma, int n_lookback, double multiplier)
+        //{
+
+        //    double[,] bands = Bollinger(n_ma, n_lookback, multiplier);
+        //    List<double> ret = new List<double>();
+        //    int buy = 0;
+        //    int sell = 0;
+        //    double deposite = initial_deposite;
+        //    double cost = 0, ROI = 0;
+        //    int shares = 0;
+        //    double buying_price = 0;
+        //    double selling_price = 0;
+        //    double prof;
+
+        //    for (int i = n_ma; i < prices.Length; i++)
+        //    {
+        //        if ((prices[i] <= bands[i, 0]) && (buy == 0))
+        //        {
+        //            buy = 1;
+        //            shares = (int)(deposite / prices[i]);
+        //            deposite = deposite - shares * prices[i];
+        //            cost = cost + shares * prices[i];
+        //            buying_price = shares * prices[i];
+
+        //        }
+        //        else if ((prices[i] >= bands[i, 1]) && buy == 1)
+        //        {
+        //            sell = 1;
+        //            deposite = deposite + shares * prices[i];
+        //            buy = sell = 0;
+
+        //            selling_price = prices[i] * shares;
+
+        //            prof = ((selling_price - buying_price) / buying_price) * 100;
+        //            ret.Add(prof);
+
+        //        }
+        //        else if (i == prices.Length - 1 && buy == 1 && sell != 1)
+        //        {
+        //            deposite = deposite + shares * prices[i];
+        //            selling_price = prices[i] * shares;
+
+        //            prof = ((selling_price - buying_price) / buying_price) * 100;
+        //            ret.Add(prof);
+        //        }
+
+        //    }
+
+        //    ROI = ((deposite - initial_deposite) / initial_deposite) * 100;
+
+        //    double SR = Sortino(ret.ToArray());
+        //    double PNP = prof_to_nonprof(ret.ToArray());
+        //    fit[0] = ROI;
+        //    fit[1] = SR;
+        //    fit[2] = ret.Count;
+
+        //    return fit;
+
+
+
+        //}
+
+
+
+
+
         public double[] Bollinger_trading(int n_ma, int n_lookback, double multiplier)
         {
-            
+
             double[,] bands = Bollinger(n_ma, n_lookback, multiplier);
             List<double> ret = new List<double>();
             int buy = 0;
@@ -130,7 +196,7 @@ namespace Algorithmic_trader
 
             for (int i = n_ma; i < prices.Length; i++)
             {
-                if ((prices[i] <= bands[i, 0]) && (buy == 0))
+             if ((prices[i] <= bands[i, 0]) && (buy == 0))    //   if  ((prices[i] < prices[i - 1]) && (prices[i] <= bands[i, 0] * 1.1) && (buy == 0))          //
                 {
                     buy = 1;
                     shares = (int)(deposite / prices[i]);
@@ -139,14 +205,14 @@ namespace Algorithmic_trader
                     buying_price = shares * prices[i];
 
                 }
-                else if ((prices[i] >= bands[i, 1]) && buy == 1)
+                else if ((prices[i] >= bands[i, 1]) && buy == 1)   // else if ((prices[i] > prices[i - 1]) && (prices[i] >= bands[i, 1] * 1.1) && buy == 1)//
                 {
                     sell = 1;
                     deposite = deposite + shares * prices[i];
                     buy = sell = 0;
-                    
+                    // ret.Add(deposite);
                     selling_price = prices[i] * shares;
-                    
+                    // prof = selling_price - buying_price;
                     prof = ((selling_price - buying_price) / buying_price) * 100;
                     ret.Add(prof);
 
@@ -155,14 +221,14 @@ namespace Algorithmic_trader
                 {
                     deposite = deposite + shares * prices[i];
                     selling_price = prices[i] * shares;
-                    
+                    // prof = selling_price - buying_price;
                     prof = ((selling_price - buying_price) / buying_price) * 100;
                     ret.Add(prof);
                 }
-                
+                // ret.Add(deposite);
             }
-            
-            ROI = ((deposite - initial_deposite) / initial_deposite) * 100;
+            // ROI = ((deposite - initial_deposite) / cost) * 100;
+            ROI = ((deposite - initial_deposite) / initial_deposite) * 100;// cost) * 100
 
             double SR = Sortino(ret.ToArray());
             double PNP = prof_to_nonprof(ret.ToArray());
@@ -175,6 +241,9 @@ namespace Algorithmic_trader
 
 
         }
+
+
+
 
         public double[] RSI(int n_rsi)   //// relative strength index
         {
@@ -344,7 +413,7 @@ namespace Algorithmic_trader
                 es_roc[i] = ((ema[i] - prev_roc) / prev_roc) * 100;
 
             }
-            for (int i = n_roc; i < prices.Length; i++)
+            for (int i = n_roc+n_ema-1; i < prices.Length; i++)
             {
 
                 if ((es_roc[i] < es_roc[i - 1]) && (es_roc[i] < OS_ref) && buy == 0)
@@ -396,8 +465,90 @@ namespace Algorithmic_trader
             return fit;
         }
 
-        
+        /// <summary>
+        /// ////////////
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
 
+        public double[] S_ROC_trading(int n_ema, int n_roc, double OB_ref, double OS_ref)   //////smoothed rate of change   ,   OB (overbought reference (upper ref) ,  OS (oversold reference (lower ref)
+        {
+            double[] ema = EMA(n_ema);
+            double[] es_roc = new double[prices.Length]; // exponentially smoothed rate of change
+            double prev_roc;
+            List<double> ret = new List<double>();
+            int buy = 0;
+            int sell = 0;
+            double deposite = initial_deposite;
+            double cost = 0, ROI = 0;
+            int shares = 0;
+            double SR, PNP;
+            double buying_price = 0, selling_price = 0, prof = 0;
+
+            for (int i = n_roc; i < prices.Length; i++)
+            {
+                prev_roc = ema[i - n_roc];
+                es_roc[i] = ((ema[i] - prev_roc) / prev_roc) * 100;
+
+            }
+            for (int i = n_roc; i < prices.Length; i++)
+            {
+
+                if ((es_roc[i] < es_roc[i - 1]) && (es_roc[i] < OS_ref) && buy == 0)
+                {
+                    buy = 1;
+                    shares = (int)(deposite / prices[i]);
+                    deposite = deposite - (shares * prices[i]);
+                    cost = cost + shares * prices[i];
+                    buying_price = shares * prices[i];
+
+
+                }
+                else if (((es_roc[i] > es_roc[i - 1]) && es_roc[i] > OB_ref) && buy == 1)
+                {
+
+                    sell = 1;
+                    deposite = deposite + shares * prices[i];
+                    buy = sell = 0;
+
+                    selling_price = prices[i] * shares;
+
+                    prof = ((selling_price - buying_price) / buying_price) * 100;
+                    ret.Add(prof);
+                }
+                else if ((i == prices.Length - 1) && (buy == 1))
+                {
+                    deposite = deposite + shares * prices[i];
+
+                    selling_price = prices[i] * shares;
+
+                    prof = ((selling_price - buying_price) / buying_price) * 100;
+                    ret.Add(prof);
+
+                }
+                /////////////////
+            }
+            SR = Sortino(ret.ToArray());
+            PNP = prof_to_nonprof(ret.ToArray());
+
+            ROI = ((deposite - initial_deposite) / initial_deposite) * 100;
+            double yrs = 365.0 / (double)prices.Length;
+            double annual_ret = ((Math.Pow((deposite / initial_deposite), yrs)) - 1) * 100;
+
+            fit[0] = ROI;
+            fit[1] = SR;
+            fit[2] = ret.Count;
+
+
+            return fit;
+        }
+
+
+        /// <summary>
+        /// /////////
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public double[] WMA(int n)  /////weighted moving average
         {
             double sum = 0;
@@ -496,6 +647,91 @@ namespace Algorithmic_trader
 
             return fit;
         }
+
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <param name="returns"></param>
+        /// <returns></returns>
+        public double[] WMA_trading(int n_ema,int n_ema2)
+        {
+
+            int[] s1 = new int[prices.Length];
+            int[] f1 = new int[prices.Length];
+            int buy = 0;
+            int sell = 0;
+            double deposite = initial_deposite;
+            double cost = 0, ROI = 0;
+            int shares = 0;
+            List<double> ret = new List<double>();   // a list of returns
+            double buying_price = 0;
+            double selling_price = 0;
+            double prof = 0;
+            double[] wma = WMA(n_ema);
+            double[] wma2 = WMA(n_ema2);
+            f1[0] = 0;
+
+            for (int i = 0; i <= prices.Length - 1; i++)
+            {
+                if (wma2[i] > wma[i]) { s1[i] = 1; }
+                else if (wma2[i] <= wma[i]) { s1[i] = -1; }
+            }
+            for (int i = 1; i <= prices.Length - 1; i++) { f1[i] = s1[i] - s1[i - 1]; }
+
+            for (int i = 0; i <= prices.Length - 1; i++)
+            {
+
+                if ((f1[i] == 2) && (buy == 0))
+                {
+                    buy = 1;
+
+                    shares = (int)(deposite / prices[i]);
+                    deposite = deposite - (shares * prices[i]);
+                    cost = cost + shares * prices[i];
+                    buying_price = shares * prices[i];
+
+                }
+                else if ((f1[i] == -2) && (buy != 0))
+                {
+                    sell = 1;
+                    deposite = deposite + shares * prices[i];
+                    buy = sell = 0;
+                    selling_price = shares * prices[i];
+                    prof = ((selling_price - buying_price) / buying_price) * 100;
+                    ret.Add(prof);
+
+                }
+                else if ((i == prices.Length - 1) && (buy == 1))
+                {
+                    deposite = deposite + shares * prices[i];
+
+                    selling_price = shares * prices[i];
+
+                    prof = ((selling_price - buying_price) / buying_price) * 100;
+                    ret.Add(prof);
+                }
+            }
+            ROI = ((deposite - initial_deposite) / initial_deposite) * 100;
+
+            /////////////////
+
+            double SR = Sortino(ret.ToArray());
+            double PNP = prof_to_nonprof(ret.ToArray());
+            double trades = ret.Count;
+            ////////////////
+
+            fit[0] = ROI;
+            fit[1] = SR;
+            fit[2] = trades;
+
+            return fit;
+        }
+        
+
+
+        /// <returns></returns>
+        /// 
+
         public double Sortino(double[] returns)
         {
             double mean, SR, sum = 0;
@@ -532,7 +768,12 @@ namespace Algorithmic_trader
 
         }
 
-        
+        /// <summary>
+        /// /////
+        /// </summary>
+        /// <param name="returns"></param>
+        /// <returns></returns>
+
 
 
         public double prof_to_nonprof(double[] returns)

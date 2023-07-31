@@ -20,8 +20,8 @@ namespace Algorithmic_trader
             p = new List<double>();
             cmd.Parameters.Clear();
             
-            //  SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=Sherin;Integrated Security=True");
-            SqlConnection con = new SqlConnection("Data Source = SQL5101.site4now.net; Initial Catalog = db_a8b890_sherindb; User Id = db_a8b890_sherindb_admin; Password = Crypto_Market2023");
+          //    SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=Sherin;Integrated Security=True");
+           SqlConnection con = new SqlConnection("Data Source = SQL5063.site4now.net; Initial Catalog = db_a8b890_sherindb; User Id = db_a8b890_sherindb_admin; Password = Crypto_Market2023");
             con.Open();
             cmd.Connection = con;
             
